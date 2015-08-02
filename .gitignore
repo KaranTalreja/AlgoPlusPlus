@@ -3,6 +3,9 @@
 .project
 .settings
 
+#Folders
+doc
+
 #Swap files
 *.swp
 *.swm
