@@ -1,6 +1,7 @@
 #eclipse project files
 .cproject
 .project
+.settings
 
 #Swap files
 *.swp

@@ -10,9 +10,8 @@ OBJDIR=$(CURR_DIR)/obj
 
 AUTODEPS:= $(patsubst $(SRC)/%.cpp,$(OBJDIR)/%.d,$(SOURCES))
 OBJS=$(patsubst $(SRC)/%.cpp,$(OBJDIR)/%.o,$(SOURCES))
-
 GCC=g++
-FLAGS=-g -Wall
+FLAGS=-g -Wall -fPIC -gdwarf-2 -std=c++11
 
 $(shell mkdir -p $(BIN))
 $(shell mkdir -p $(OBJDIR))
@@ -29,7 +28,7 @@ $(OBJDIR)/%.o: $(SRC)/%.cpp
 
 $(OBJDIR)/%.d: $(SRC)/%.cpp
 	@set -e; rm -f $@; \
-         $(GCC) -MM $(INCDIRS) $< > $@.$$$$; \
+         $(GCC) -MM $(INCDIRS) $(FLAGS) $< > $@.$$$$; \
          sed 's,\($*\)\.o[ :]*,$(OBJDIR)/\1.o $@ : ,g' < $@.$$$$ > $@; \
          rm -f $@.$$$$
 clean:
