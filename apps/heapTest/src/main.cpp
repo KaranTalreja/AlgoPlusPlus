@@ -9,12 +9,12 @@
 
 int main()
 {
-	heap<size_t,basic_heap_min_traits<size_t> > a;
-	for (size_t i = 1; i <= 10 ; i++) a.insert(i);
+	heap<size_t*,basic_heap_min_traits<size_t*> > a;
+	for (size_t i = 1; i <= 10 ; i++) a.insert(new size_t(i));
 	a.decompile();
 	a.extractTop();
 	a.decompile();
-	a.insert(1);
+	a.insert(new size_t(1));
 	a.decompile();
 	return 0;
 }
