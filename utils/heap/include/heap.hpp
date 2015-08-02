@@ -13,10 +13,15 @@
 #include <type_traits>
 using namespace std;
 
+/**
+ * @brief basic_heap_traits provides
+ * @tparam T template parameter to tell type
+ */
 template<class T>
 class basic_heap_traits
 {
 public:
+	///@brief Member function to provide == operator support.
 	static bool eq (T& a, T& b);
 	static bool lt (T& a, T& b);
 };
