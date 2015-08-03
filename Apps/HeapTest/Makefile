@@ -1,6 +1,6 @@
 PROJ_WDIR=../../
 CURR_DIR=$(PWD)
-INCDIRS=-I $(CURR_DIR)/om/include/ -I $(PROJ_WDIR)/utils/heap/include
+INCDIRS=-I $(CURR_DIR)/om/include/ -I $(PROJ_WDIR)/Utils/Heap/include
 SRC=$(CURR_DIR)/src
 BIN=$(CURR_DIR)/bin
 EXEC=$(BIN)/exec
