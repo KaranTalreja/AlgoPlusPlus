@@ -42,12 +42,39 @@ public:
 	}
 };
 
+
+template <class T>
+class basic_heap_min_traits<T,false> : public basic_heap_traits <T>
+{
+public:
+	static bool eq (T& a, T& b) {return T::getKey(a) == T::getKey(b) ? true : false;}
+	static bool lt (T& a, T& b) {return T::getKey(a) < T::getKey(b) ? true : false;}
+	static bool lte (T& a, T& b)
+	{
+		if (true == basic_heap_min_traits<T>::eq(a,b)) return true;
+		return basic_heap_min_traits<T>::lt(a,b);
+	}
+};
+
 template <class T>
 class basic_heap_max_traits<T,true> : public basic_heap_traits <T>
 {
 public:
 	static bool eq (T& a, T& b) {return a == b ? true : false;}
 	static bool lt (T& a, T& b) {return a > b ? true : false;}
+	static bool lte (T& a, T& b)
+	{
+		if (true == basic_heap_max_traits<T>::eq(a,b)) return true;
+		return basic_heap_max_traits<T>::lt(a,b);
+	}
+};
+
+template <class T>
+class basic_heap_max_traits<T,false> : public basic_heap_traits <T>
+{
+public:
+	static bool eq (T& a, T& b) {return T::getKey(a) == T::getKey(b) ? true : false;}
+	static bool lt (T& a, T& b) {return T::getKey(a) > T::getKey(b) ? true : false;}
 	static bool lte (T& a, T& b)
 	{
 		if (true == basic_heap_max_traits<T>::eq(a,b)) return true;
@@ -69,11 +96,37 @@ public:
 };
 
 template <class T>
+class basic_heap_min_traits<T*,false> : public basic_heap_traits <T>
+{
+public:
+	static bool eq (T* &a, T* &b) {return T::getKey(*a) == T::getKey(*b) ? true : false;}
+	static bool lt (T* &a, T* &b) {return T::getKey(*a) < T::getKey(*b) ? true : false;}
+	static bool lte (T* &a, T* &b)
+	{
+		if (true == basic_heap_min_traits<T*>::eq(a,b)) return true;
+		return basic_heap_min_traits<T*>::lt(a,b);
+	}
+};
+
+template <class T>
 class basic_heap_max_traits<T*,true> : public basic_heap_traits <T>
 {
 public:
 	static bool eq (T* &a, T* &b) {return *a == *b ? true : false;}
 	static bool lt (T* &a, T* &b) {return *a > *b ? true : false;}
+	static bool lte (T* &a, T* &b)
+	{
+		if (true == basic_heap_max_traits<T*>::eq(a,b)) return true;
+		return basic_heap_max_traits<T*>::lt(a,b);
+	}
+};
+
+template <class T>
+class basic_heap_max_traits<T*,false> : public basic_heap_traits <T>
+{
+public:
+	static bool eq (T* &a, T* &b) {return T::getKey(*a) == T::getKey(*b) ? true : false;}
+	static bool lt (T* &a, T* &b) {return T::getKey(*a) > T::getKey(*b) ? true : false;}
 	static bool lte (T* &a, T* &b)
 	{
 		if (true == basic_heap_max_traits<T*>::eq(a,b)) return true;
