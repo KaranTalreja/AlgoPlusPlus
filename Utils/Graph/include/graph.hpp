@@ -95,8 +95,8 @@ public:
 	edgeDescriptorType m_edgeDescriptor;
 	nodeWithEdges():m_nodeProperties(NULL),m_edgeList(0){};
 	nodeWithEdges(nodeProperties* node):m_edgeList(0) {this->m_nodeProperties = node;}
-	nodeProperties* operator[] (nodeDescriptor &v) {return this->m_nodeProperties;}
-	edgeProperties* operator[] (size_t edgeIdx) {return this->m_edgeList[edgeIdx-1];}
+	nodeProperties& operator[] (nodeDescriptor &v) {return *(this->m_nodeProperties);}
+	edgeProperties& operator[] (size_t edgeIdx) {return *(this->m_edgeList[edgeIdx-1]);}
 	nodeDescriptor& getNodeDescriptor () {return (this->m_nodeDescriptor);}
 	edgeDescriptor& getEdgeDescriptor () {return (this->m_edgeDescriptor);}
 	void addEdge(edgeProperties* edge) {this->m_edgeList.push_back(edge);}
@@ -145,7 +145,7 @@ public:
 	edgeDescriptorType m_edgeDescriptor;
 	nodeWithEdges():m_nodeProperties(NULL),m_edgeList(0){};
 	nodeWithEdges(nodeProperties* node):m_edgeList(0) {this->m_nodeProperties = node;}
-	nodeProperties* operator[] (nodeDescriptor &v) {return this->m_nodeProperties;}
+	nodeProperties& operator[] (nodeDescriptor &v) {return *(this->m_nodeProperties);}
 	edgeProperties& operator[] (size_t edgeIdx) {return this->m_edgeList[edgeIdx-1];}
 	nodeDescriptor& getNodeDescriptor () {return (this->m_nodeDescriptor);}
 	edgeDescriptor& getEdgeDescriptor () {return (this->m_edgeDescriptor);}
@@ -195,8 +195,8 @@ public:
 	edgeDescriptorType m_edgeDescriptor;
 	nodeWithEdges():m_edgeList(0){};
 	nodeWithEdges(nodeProperties &node):m_edgeList(0) {this->m_nodeProperties = node;}
-	nodeProperties operator[] (nodeDescriptor &v) {return this->m_nodeProperties;}
-	edgeProperties* operator[] (size_t edgeIdx) {return this->m_edgeList[edgeIdx-1];}
+	nodeProperties& operator[] (nodeDescriptor &v) {return this->m_nodeProperties;}
+	edgeProperties& operator[] (size_t edgeIdx) {return *(this->m_edgeList[edgeIdx-1]);}
 	nodeDescriptor& getNodeDescriptor () {return (this->m_nodeDescriptor);}
 	edgeDescriptor& getEdgeDescriptor () {return (this->m_edgeDescriptor);}
 	void addEdge(edgeProperties* edge) {this->m_edgeList.push_back(edge);}

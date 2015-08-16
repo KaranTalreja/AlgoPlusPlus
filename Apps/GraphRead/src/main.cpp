@@ -58,11 +58,11 @@ int main(int argc , char* argv[])
 	{
 		edge *tempEdge;
 		node *tempNodeStart,*tempNodeEnd;
-		tempNodeStart = (NULL == Graph[tempNodeStartVal][v]) ? new node(tempNodeStartVal) : Graph[tempNodeStartVal][v];
-		tempNodeEnd = (NULL == Graph[tempNodeEndVal][v]) ? new node(tempNodeEndVal) : Graph[tempNodeEndVal][v];
+		tempNodeStart = (NULL == &Graph[tempNodeStartVal][v]) ? new node(tempNodeStartVal) : &Graph[tempNodeStartVal][v];
+		tempNodeEnd = (NULL == &Graph[tempNodeEndVal][v]) ? new node(tempNodeEndVal) : &Graph[tempNodeEndVal][v];
 		tempEdge = new edge(tempNodeStart,tempNodeEnd,tempWeight);
-		if (NULL == Graph[tempNodeStartVal][v]) Graph[tempNodeStartVal] = tempNodeStart;
-		if (NULL == Graph[tempNodeEndVal][v]) Graph[tempNodeEndVal] = tempNodeEnd;
+		if (NULL == &Graph[tempNodeStartVal][v]) Graph[tempNodeStartVal] = tempNodeStart;
+		if (NULL == &Graph[tempNodeEndVal][v]) Graph[tempNodeEndVal] = tempNodeEnd;
 		Graph[tempNodeStartVal].addEdge(tempEdge);
 	}
 	cout << noOfNodes <<endl <<Graph;

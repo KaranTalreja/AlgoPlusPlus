@@ -63,7 +63,7 @@ int main() {
 	b[2].addEdge(&revTempEdge);
 	using graphNodeDesc1 = graph<node*,edge*>::nodeDescriptorType;
 	graphNodeDesc1 v1;
-	cout << b << b[1][v1]->m_id <<" "<< b[2][v1]->m_id <<" "<< b[1][1]->m_weight <<" "<< b[2][1]->m_weight << endl <<endl;
+	cout << b << b[1][v1].m_id <<" "<< b[2][v1].m_id <<" "<< b[1][1].m_weight <<" "<< b[2][1].m_weight << endl <<endl;
 
 	//node pointer input template only
 	graph <node*,edge> c(500);
@@ -73,7 +73,7 @@ int main() {
 	c[2].addEdge(revTempEdge);
 	using graphNodeDesc2 = graph<node*,edge>::nodeDescriptorType;
 	graphNodeDesc2 v2;
-	cout << c << c[1][v2]->m_id <<" "<< c[2][v2]->m_id <<" "<< c[1][1].m_weight <<" "<< c[2][1].m_weight << endl <<endl;
+	cout << c << c[1][v2].m_id <<" "<< c[2][v2].m_id <<" "<< c[1][1].m_weight <<" "<< c[2][1].m_weight << endl <<endl;
 
 	//edge pointer input template only
 	graph <node,edge*> d(500);
@@ -83,6 +83,6 @@ int main() {
 	d[2].addEdge(&revTempEdge);
 	using graphNodeDesc3 = graph<node,edge*>::nodeDescriptorType;
 	graphNodeDesc3 v3;
-	cout << d << d[1][v3].m_id <<" "<< d[2][v3].m_id <<" "<< d[1][1]->m_weight <<" "<< d[2][1]->m_weight << endl <<endl;
+	cout << d << d[1][v3].m_id <<" "<< d[2][v3].m_id <<" "<< d[1][1].m_weight <<" "<< d[2][1].m_weight << endl <<endl;
 	return 0;
 }
