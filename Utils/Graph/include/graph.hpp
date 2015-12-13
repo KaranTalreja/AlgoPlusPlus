@@ -1,10 +1,10 @@
-/*
- * graph.hpp
+/**
+ *  @file graph.cpp
  *
  *  Created on: 04-Aug-2015
- *      Author: karan
+ *  @author: Karan Talreja
+ *  @details This file contains implementation of graph data structure.
  */
-
 #ifndef UTILS_GRAPH_INCLUDE_GRAPH_HPP_
 #define UTILS_GRAPH_INCLUDE_GRAPH_HPP_
 

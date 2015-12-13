@@ -1,10 +1,10 @@
-/*
- * heap.hpp
+/**
+ *  @file heap.hpp
  *
  *  Created on: 01-Aug-2015
- *      Author: karan
+ *  @author: Karan Talreja
+ *  @details This file contains implementation of heap data structure.
  */
-
 #ifndef UTILS_HEAP_INCLUDE_HEAP_HPP_
 #define UTILS_HEAP_INCLUDE_HEAP_HPP_
 
@@ -14,7 +14,7 @@
 using namespace std;
 
 /**
- * @brief basic_heap_traits provides comparator functions required for implementing heap functionality.
+ * @brief #basic_heap_traits provides comparator functions required for implementing heap functionality.
  * @tparam T Type of nodes to be kept in heap
  */
 template<class T>
@@ -29,39 +29,39 @@ public:
 };
 
 /**
- * @brief basic_heap_min_traits general template without specialization for providing min heap.
+ * @brief [General Template]:#basic_heap_min_traits for providing min heap.
  * @tparam T 				Type of nodes to be kept in heap
  * @tparam isFundamental 	bool to know whether the type T is fundamental(int, char, size_t etc..) or not.
  * @details The second template parameter is required to provide partial specializations for ease of comparison between fundamental types.
  * The template std::remove_pointer removes the pointer from type. std::is_fundamental<>::value provides a bool for the second class template
- * parameter.
- * Specializations available:
- * < T , isFundamental = true >			// Non-pointer fundamental types
- * < T , isFundamental = false >		// Non-pointer non-fundamental types
- * < T*, isFundamental = true >			// pointer fundamental types
- * < T*, isFundamental = false >		// pointer non-fundamental types
+ * parameter. @n
+ * @b Specializations @b available: @n
+ * #basic_heap_min_traits< T , true >	// Non-pointer fundamental types @n
+ * #basic_heap_min_traits< T , false >	// Non-pointer non-fundamental types @n
+ * #basic_heap_min_traits< T*, true >	// pointer fundamental types @n
+ * #basic_heap_min_traits< T*, false >	// pointer non-fundamental types @n
  */
-template <class T, bool isFundamental = std::is_fundamental< typename std::remove_pointer<T>::type >::value > class basic_heap_min_traits;
+template <class T, bool isFundamental = std::is_fundamental< typename std::remove_pointer<T>::type >::value > class basic_heap_min_traits{};
 
 /**
- * @brief basic_heap_max_traits general template without specialization for providing max heap.
+ * @brief [General Template]:#basic_heap_max_traits for providing max heap.
  * @tparam T 				Type of nodes to be kept in heap
  * @tparam isFundamental 	bool to know whether the type T is fundamental(int, char, size_t etc..) or not.
  * @details The second template parameter is required to provide partial specializations for ease of comparison between fundamental types.
  * The template std::remove_pointer removes the pointer from type. std::is_fundamental<>::value provides a bool for the second class template
- * parameter.
- * Specializations available:
- * < T , isFundamental = true >			// Non-pointer fundamental types
- * < T , isFundamental = false >		// Non-pointer non-fundamental types
- * < T*, isFundamental = true >			// pointer fundamental types
- * < T*, isFundamental = false >		// pointer non-fundamental types
+ * parameter. @n
+ * @b Specializations @b available: @n
+ * #basic_heap_max_traits< T , true >	// Non-pointer fundamental types @n
+ * #basic_heap_max_traits< T , false >	// Non-pointer non-fundamental types @n
+ * #basic_heap_max_traits< T*, true >	// pointer fundamental types @n
+ * #basic_heap_max_traits< T*, false >	// pointer non-fundamental types @n
  */
-template <class T, bool isFundamental = std::is_fundamental< typename std::remove_pointer<T>::type >::value > class basic_heap_max_traits;
+template <class T, bool isFundamental = std::is_fundamental< typename std::remove_pointer<T>::type >::value > class basic_heap_max_traits{};
 
 /**
- * @brief basic_heap_min_traits partial specialization for providing min heap for fundamental types.
+ * @brief [Partial Specialization]:#basic_heap_min_traits for providing min heap for fundamental types.
  * @tparam T 				Type of nodes to be kept in heap
- * @details Partial specialization of basic_heap_min_traits provides member function of '==' , '<' and '<=' operators. Second template
+ * @details basic_heap_min_traits<T,true> provides member function of '==' , '<' and '<=' operators. Second template
  * parameter is specialized as true to easily compare the member function arguments.
  */
 template <class T>
@@ -83,9 +83,9 @@ public:
 };
 
 /**
- * @brief basic_heap_min_traits partial specialization for providing min heap for non-fundamental types.
+ * @brief [Partial Specialization]:#basic_heap_min_traits for providing min heap for non-fundamental types.
  * @tparam T 				Type of nodes to be kept in heap. Must contain a static member function T::getKey(T)
- * @details Partial specialization of basic_heap_min_traits provides member function of '==' , '<' and '<=' operators. Second template
+ * @details basic_heap_min_traits<T,false> provides member function of '==' , '<' and '<=' operators. Second template
  * parameter is specialized as false.
  */
 template <class T>
@@ -107,9 +107,9 @@ public:
 };
 
 /**
- * @brief basic_heap_max_traits partial specialization for providing max heap for fundamental types.
+ * @brief [Partial Specialization]:#basic_heap_max_traits for providing max heap for fundamental types.
  * @tparam T 				Type of nodes to be kept in heap
- * @details Partial specialization of basic_heap_max_traits provides member function of '==' , '<' and '<=' operators. Second template
+ * @details basic_heap_max_traits<T,true> provides member function of '==' , '<' and '<=' operators. Second template
  * parameter is specialized as true to easily compare the member function arguments.
  */
 template <class T>
@@ -131,9 +131,9 @@ public:
 };
 
 /**
- * @brief basic_heap_max_traits partial specialization for providing max heap for non-fundamental types.
+ * @brief [Partial Specialization]:#basic_heap_max_traits for providing max heap for non-fundamental types.
  * @tparam T 				Type of nodes to be kept in heap. Must contain a static member function T::getKey(T)
- * @details Partial specialization of basic_heap_max_traits provides member function of '==' , '<' and '<=' operators. Second template
+ * @details basic_heap_max_traits<T,false> provides member function of '==' , '<' and '<=' operators. Second template
  * parameter is specialized as false.
  */
 template <class T>
@@ -155,9 +155,9 @@ public:
 };
 
 /**
- * @brief basic_heap_min_traits partial specialization for providing min heap for pointers of fundamental types.
+ * @brief [Partial Specialization]:#basic_heap_min_traits for providing min heap for pointers of fundamental types.
  * @tparam T 				Type of nodes to be kept in heap
- * @details Partial specialization of basic_heap_min_traits provides member function of '==' , '<' and '<=' operators. Second template
+ * @details basic_heap_min_traits<T*,true> provides member function of '==' , '<' and '<=' operators. Second template
  * parameter is specialized as true to easily compare the member function arguments.
  */
 template <class T>
@@ -179,9 +179,9 @@ public:
 };
 
 /**
- * @brief basic_heap_min_traits partial specialization for providing min heap for pointers of non-fundamental types.
+ * @brief [Partial Specialization]:#basic_heap_min_traits for providing min heap for pointers of non-fundamental types.
  * @tparam T 				Type of nodes to be kept in heap. Must contain a static member function T::getKey(T)
- * @details Partial specialization of basic_heap_min_traits provides member function of '==' , '<' and '<=' operators. Second template
+ * @details basic_heap_min_traits<T*,false> provides member function of '==' , '<' and '<=' operators. Second template
  * parameter is specialized as false.
  */
 template <class T>
@@ -203,9 +203,9 @@ public:
 };
 
 /**
- * @brief basic_heap_max_traits partial specialization for providing max heap for pointers of fundamental types.
+ * @brief [Partial Specialization]:#basic_heap_max_traits for providing max heap for pointers of fundamental types.
  * @tparam T 				Type of nodes to be kept in heap
- * @details Partial specialization of basic_heap_max_traits provides member function of '==' , '<' and '<=' operators. Second template
+ * @details basic_heap_max_traits<T*,true> provides member function of '==' , '<' and '<=' operators. Second template
  * parameter is specialized as true to easily compare the member function arguments.
  */
 template <class T>
@@ -227,9 +227,9 @@ public:
 };
 
 /**
- * @brief basic_heap_max_traits partial specialization for providing max heap for pointers of non-fundamental types.
+ * @brief [Partial Specialization]:#basic_heap_max_traits for providing max heap for pointers of non-fundamental types.
  * @tparam T 				Type of nodes to be kept in heap. Must contain a static member function T::getKey(T)
- * @details Partial specialization of basic_heap_max_traits provides member function of '==' , '<' and '<=' operators. Second template
+ * @details basic_heap_max_traits<T*,false> provides member function of '==' , '<' and '<=' operators. Second template
  * parameter is specialized as false.
  */
 template <class T>
@@ -251,9 +251,11 @@ public:
 };
 
 /**
- * @brief heap provides a data structure for efficient extractTop queries
+ * @brief [General Template]: #heap provides a data structure for efficient extractTop queries
  * @tparam T 		Type of nodes to be kept in heap.
  * @tparam traits 	Traits of nodes which is to kept in heap. Traits provide comparator functions.
+ * @details  * @b Specializations @b available: @n
+ * #heap< T* , traits >	// Pointer types @n
  */
 template <class T, class traits = basic_heap_traits<T> >
 class heap
@@ -356,7 +358,7 @@ void heap<T,traits>::decompile()
 }
 
 /**
- * @brief [Partial specialization] heap provides a data structure for efficient extractTop queries
+ * @brief [Partial specialization]: #heap provides a data structure for efficient extractTop queries
  * @tparam T 		Pointer type of nodes to be kept in heap.
  * @tparam traits 	Traits of nodes which is to kept in heap. Traits provide comparator functions.
  */

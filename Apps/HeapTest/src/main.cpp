@@ -1,5 +1,5 @@
 /**
- *  @file main.cpp
+ *  @file HeapTest/src/main.cpp
  *
  *  Created on: 01-Aug-2015
  *  @author: Karan Talreja
@@ -42,6 +42,10 @@ public:
 }
 
 using namespace HeapTest;
+
+/**
+ * @brief Main function to test various types of heap instantiations and basic usages.
+ */
 int main()
 {
 	/**
