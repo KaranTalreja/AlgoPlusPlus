@@ -70,15 +70,15 @@ using namespace GraphTest;
 
 /**
  * @brief Main function to test various types of graph instantiations and basic usages.
- * @details The testing function first creates two nodes and two edges between them of both directions. The use case if the graph is similar
+ * @details The testing function first creates two nodes and two edges between them of both directions. The use case of the graph is similar
  * in all the scenarios where the template arguments are either pointers or non-pointers in any combination.
  * To access the vertex properties a nodeDescriptorType variable is created. This variable provides access to the nodes members. To access the
  * edges of the nodes another [] operator is written after the selected node.
  * Sample output of all test scenarios
- *
- * 1--10-->2
- * 2--(-10)-->1
- * 1 2 10 -10
+ *@n
+ * 1--10-->2 @n
+ * 2--(-10)-->1 @n
+ * 1 2 10 -10 @n
  *
  */
 int main() {
