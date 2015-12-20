@@ -1,0 +1,136 @@
+/**********************************************************/
+/*Both non-pointer template args, bidirectional graph     */
+/**********************************************************/
+No of vertices: 2
+Bidirectional graph "All Edges" decompile
+Out: 1 10 2
+Out: 2 10 1
+
+No of vertices: 2
+Bidirectional graph "Node Only" decompile
+ 1  2
+ 2  1
+
+/**********************************************************/
+/*Both non-pointer template args, directed graph          */
+/**********************************************************/
+No of vertices: 2
+Directed graph "All edges" decompile
+Out: 1 10 2
+In : 1 10 2
+
+No of vertices: 2
+Directed graph "In Edges Only" decompile
+In : 1 10 2
+
+No of vertices: 2
+Directed graph "Out Edges Only" decompile
+Out: 1 10 2
+
+No of vertices: 2
+Directed graph "Node Only" decompile
+ 1  2
+ 2
+
+/**********************************************************/
+/*Both pointer template args, bidirectional graph         */
+/**********************************************************/
+No of vertices: 2
+Bidirectional graph "All Edges" decompile
+Out: 1 10 2
+Out: 2 10 1
+
+No of vertices: 2
+Bidirectional graph "Node Only" decompile
+ 1  2
+ 2  1
+
+/**********************************************************/
+/*Both pointer template args, directed graph              */
+/**********************************************************/
+No of vertices: 2
+Directed graph "All Edges" decompile
+Out: 1 10 2
+In : 1 10 2
+
+No of vertices: 2
+Directed graph "In Edges Only" decompile
+In : 1 10 2
+
+No of vertices: 2
+Directed graph "Out Edges Only" decompile
+Out: 1 10 2
+
+No of vertices: 2
+Directed graph "Node Only" decompile
+ 1  2
+ 2
+
+/**********************************************************/
+/*Node*,Edge template args, bidirectional graph           */
+/**********************************************************/
+No of vertices: 2
+Bidirectional graph "All Edges" decompile
+Out: 1 10 2
+Out: 2 10 1
+
+No of vertices: 2
+Bidirectional graph "Node Only" decompile
+ 1  2
+ 2  1
+
+/**********************************************************/
+/*Node*,Edge template args, directed graph                */
+/**********************************************************/
+No of vertices: 2
+Directed graph "All Edges" decompile
+Out: 1 10 2
+In : 1 10 2
+
+No of vertices: 2
+Directed graph "In Edges Only" decompile
+In : 1 10 2
+
+No of vertices: 2
+Directed graph "Out Edges Only" decompile
+Out: 1 10 2
+
+No of vertices: 2
+Directed graph "Node Only" decompile
+ 1  2
+ 2
+
+/**********************************************************/
+/*Node,Edge* template args, bidirectional graph           */
+/**********************************************************/
+No of vertices: 2
+Bidirectional graph "All Edges" decompile
+Out: 1 10 2
+Out: 2 10 1
+
+No of vertices: 2
+Bidirectional graph "Node Only" decompile
+ 1  2
+ 2  1
+
+/**********************************************************/
+/*Node,Edge* template args, directed graph                */
+/**********************************************************/
+No of vertices: 2
+Directed graph "All Edges" decompile
+Out: 1 10 2
+In : 1 10 2
+
+No of vertices: 2
+Directed graph "In Edges Only" decompile
+In : 1 10 2
+
+No of vertices: 2
+Directed graph "Out Edges Only" decompile
+Out: 1 10 2
+
+No of vertices: 2
+Directed graph "Node Only" decompile
+ 1  2
+ 2
+
