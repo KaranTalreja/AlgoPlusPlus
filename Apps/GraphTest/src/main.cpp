@@ -31,7 +31,7 @@ struct node
 	node(size_t id):m_id(id){};
 
 	///@brief Friend operator << for decompiling the node which is used from the graph decompile
-	friend ostream& operator<< (ostream& out, node& nodeArg)
+	friend ostream& operator<< (ostream& out, node nodeArg)
 	{
 		out << nodeArg.m_id;
 		return out;
@@ -45,28 +45,23 @@ struct node
  */
 struct edge
 {
-	node* m_first;		///< Pointer to first node of the edge.
-	node* m_second;		///< Pointer to second node of the edge.
 	int m_weight;		///< Weight of the edge.
 
 	///@brief Default constructor for initializing class members
-	edge():m_first(NULL),m_second(NULL),m_weight(0){};
+	edge():m_weight(0){};
 
-	///@brief Triple argument constructor to initialize class members
-	edge(node* first, node* second, int weight):m_first(first),m_second(second),m_weight(weight){};
+	///@brief Single argument constructor to initialize class members
+	edge(int weight):m_weight(weight){};
 
 	///@brief Friend operator << for decompiling the edge which is used from the graph decompile
-	friend ostream& operator<< (ostream& out, edge& edgeNode)
+	friend ostream& operator<< (ostream& out, edge edgeNode)
 	{
-		out << *(edgeNode.m_first) << "--";
 		if (0 > edgeNode.m_weight) out << "(" << edgeNode.m_weight << ")";
-		else out << edgeNode.m_weight;
-		out << "-->" << *(edgeNode.m_second) << "\n";
+		else out << " " << edgeNode.m_weight;
 		return out;
 	}
 };
 }
-using namespace GraphTest;
 
 /**
  * @brief Main function to test various types of graph instantiations and basic usages.
@@ -82,49 +77,139 @@ using namespace GraphTest;
  *
  */
 int main() {
-	node firstNode(1);
-	node secondNode(2);
-	edge tempEdge(&firstNode,&secondNode,10);
-	edge revTempEdge(&secondNode,&firstNode,-10);
+	GraphTest::node firstNode(1);
+	GraphTest::node secondNode(2);
+	GraphTest::edge Edge(10);
 
-	//Both normal input templates
-	graph <node,edge> a(500);
-	a[1] = firstNode;
-	a[2] = secondNode;
-	a[1].addEdge(tempEdge);
-	a[2].addEdge(revTempEdge);
-	using graphNodeDesc = graph<node,edge>::nodeDescriptorType;
-	graphNodeDesc v;
-	cout << a << a[1][v].m_id <<" "<< a[2][v].m_id <<" "<< a[1][1].m_weight <<" "<< a[2][1].m_weight << endl <<endl;
+	cout << "/**********************************************************/" << endl;
+	cout << "/*Both non-pointer template args, bidirectional graph     */" << endl;
+	cout << "/**********************************************************/" << endl;
+	{
+		typedef graph < GraphTest::node, GraphTest::edge, graphTraits::bidirectional> map;
+		map a;
+		map::vertexDescriptor v = a.addVertex(firstNode);
+		map::vertexDescriptor v2 = a.addVertex(secondNode);
+		a.addEdge(v,v2,Edge);
+		a.setDecompileFlavor(graphTraits::AllEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::Nodes);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+	}
+	cout << "/**********************************************************/" << endl;
+	cout << "/*Both non-pointer template args, directed graph          */" << endl;
+	cout << "/**********************************************************/" << endl;
+	{
+		//Both normal input templates
+		typedef graph < GraphTest::node, GraphTest::edge, graphTraits::directed> map;
+		map a;
+		map::vertexDescriptor v = a.addVertex(firstNode);
+		map::vertexDescriptor v2 = a.addVertex(secondNode);
+		a.addEdge(v,v2,Edge);
+		a.setDecompileFlavor(graphTraits::AllEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::InEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::OutEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::Nodes);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+	}
+	cout << "/**********************************************************/" << endl;
+	cout << "/*Both pointer template args, bidirectional graph         */" << endl;
+	cout << "/**********************************************************/" << endl;
+	{
+		typedef graph < GraphTest::node*, GraphTest::edge*, graphTraits::bidirectional> map;
+		map a;
+		map::vertexDescriptor v = a.addVertex(&firstNode);
+		map::vertexDescriptor v2 = a.addVertex(&secondNode);
+		a.addEdge(v,v2,&Edge);
+		a.setDecompileFlavor(graphTraits::AllEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::Nodes);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+	}
+	cout << "/**********************************************************/" << endl;
+	cout << "/*Both pointer template args, directed graph              */" << endl;
+	cout << "/**********************************************************/" << endl;
+	{
+		typedef graph < GraphTest::node*, GraphTest::edge*, graphTraits::directed> map;
+		map a;
+		map::vertexDescriptor v = a.addVertex(&firstNode);
+		map::vertexDescriptor v2 = a.addVertex(&secondNode);
+		a.addEdge(v,v2,&Edge);
+		a.setDecompileFlavor(graphTraits::AllEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::InEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::OutEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::Nodes);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+	}
+	cout << "/**********************************************************/" << endl;
+	cout << "/*Node*,Edge template args, bidirectional graph           */" << endl;
+	cout << "/**********************************************************/" << endl;
+	{
+		typedef graph < GraphTest::node*, GraphTest::edge, graphTraits::bidirectional> map;
+		map a;
+		map::vertexDescriptor v = a.addVertex(&firstNode);
+		map::vertexDescriptor v2 = a.addVertex(&secondNode);
+		a.addEdge(v,v2,Edge);
+		a.setDecompileFlavor(graphTraits::AllEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::Nodes);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+	}
+	cout << "/**********************************************************/" << endl;
+	cout << "/*Node*,Edge template args, directed graph                */" << endl;
+	cout << "/**********************************************************/" << endl;
+	{
+		typedef graph < GraphTest::node*, GraphTest::edge, graphTraits::directed> map;
+		map a;
+		map::vertexDescriptor v = a.addVertex(&firstNode);
+		map::vertexDescriptor v2 = a.addVertex(&secondNode);
+		a.addEdge(v,v2,Edge);
+		a.setDecompileFlavor(graphTraits::AllEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::InEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::OutEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::Nodes);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+	}
+	cout << "/**********************************************************/" << endl;
+	cout << "/*Node,Edge* template args, bidirectional graph           */" << endl;
+	cout << "/**********************************************************/" << endl;
+	{
+		typedef graph < GraphTest::node, GraphTest::edge*, graphTraits::bidirectional> map;
+		map a;
+		map::vertexDescriptor v = a.addVertex(firstNode);
+		map::vertexDescriptor v2 = a.addVertex(secondNode);
+		a.addEdge(v,v2,&Edge);
+		a.setDecompileFlavor(graphTraits::AllEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::Nodes);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+	}
+	cout << "/**********************************************************/" << endl;
+	cout << "/*Node,Edge* template args, directed graph                */" << endl;
+	cout << "/**********************************************************/" << endl;
+	{
+		typedef graph < GraphTest::node, GraphTest::edge*, graphTraits::directed> map;
+		map a;
+		map::vertexDescriptor v = a.addVertex(firstNode);
+		map::vertexDescriptor v2 = a.addVertex(secondNode);
+		a.addEdge(v,v2,&Edge);
+		a.setDecompileFlavor(graphTraits::AllEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::InEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::OutEdges);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+		a.setDecompileFlavor(graphTraits::Nodes);
+		cout << "No of vertices: "<< a.size()  << endl << a <<endl;
+	}
 
-	//Both pointer input templates
-	graph <node*,edge*> b(500);
-	b[1] = &firstNode;
-	b[2] = &secondNode;
-	b[1].addEdge(&tempEdge);
-	b[2].addEdge(&revTempEdge);
-	using graphNodeDesc1 = graph<node*,edge*>::nodeDescriptorType;
-	graphNodeDesc1 v1;
-	cout << b << b[1][v1].m_id <<" "<< b[2][v1].m_id <<" "<< b[1][1].m_weight <<" "<< b[2][1].m_weight << endl <<endl;
-
-	//node pointer input template only
-	graph <node*,edge> c(500);
-	c[1] = &firstNode;
-	c[2] = &secondNode;
-	c[1].addEdge(tempEdge);
-	c[2].addEdge(revTempEdge);
-	using graphNodeDesc2 = graph<node*,edge>::nodeDescriptorType;
-	graphNodeDesc2 v2;
-	cout << c << c[1][v2].m_id <<" "<< c[2][v2].m_id <<" "<< c[1][1].m_weight <<" "<< c[2][1].m_weight << endl <<endl;
-
-	//edge pointer input template only
-	graph <node,edge*> d(500);
-	d[1] = firstNode;
-	d[2] = secondNode;
-	d[1].addEdge(&tempEdge);
-	d[2].addEdge(&revTempEdge);
-	using graphNodeDesc3 = graph<node,edge*>::nodeDescriptorType;
-	graphNodeDesc3 v3;
-	cout << d << d[1][v3].m_id <<" "<< d[2][v3].m_id <<" "<< d[1][1].m_weight <<" "<< d[2][1].m_weight << endl <<endl;
 	return 0;
 }

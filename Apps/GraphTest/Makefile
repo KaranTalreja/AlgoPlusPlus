@@ -21,15 +21,25 @@ all:$(EXEC)
 -include $(AUTODEPS)
 
 $(EXEC): $(OBJS)
-	$(GCC) $^ -o $@ $(FLAGS) $(INCDIRS) 
+	@echo "$(notdir $^) --> $(notdir $@)"
+	@$(GCC) $^ -o $@ $(FLAGS) $(INCDIRS) 
 
 $(OBJDIR)/%.o: $(SRC)/%.cpp
-	$(GCC) -o $@ $(FLAGS) $(INCDIRS) -c $< 
+	@echo "$(notdir $^) --> $(notdir $@)"
+	@$(GCC) -o $@ $(FLAGS) $(INCDIRS) -c $< 
 
 $(OBJDIR)/%.d: $(SRC)/%.cpp
+	@echo "$(notdir $^) --> $(notdir $@)"
 	@set -e; rm -f $@; \
          $(GCC) -MM $(INCDIRS) $(FLAGS) $< > $@.$$$$; \
          sed 's,\($*\)\.o[ :]*,$(OBJDIR)/\1.o $@ : ,g' < $@.$$$$ > $@; \
          rm -f $@.$$$$
+
+test:
+	@echo "Testing"
+	@$(PROJ_WDIR)/Test/test.sh $(EXEC) TestCaseList
+
 clean:
-	rm -rf $(EXEC) $(OBJDIR)/*.d* $(OBJDIR)/*.d $(OBJDIR)/*.o 
+	@rm -rf $(EXEC) $(OBJDIR)/*.d* $(OBJDIR)/*.d $(OBJDIR)/*.o 
+
+.PHONY:test

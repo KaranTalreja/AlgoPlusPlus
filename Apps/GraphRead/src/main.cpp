@@ -33,7 +33,7 @@ struct node
 	node(size_t id):m_id(id){};
 
 	///@brief Friend operator << for decompiling the node which is used from the graph decompile
-	friend ostream& operator<< (ostream& out, node& nodeArg)
+	friend ostream& operator<< (ostream& out, node nodeArg)
 	{
 		out << nodeArg.m_id;
 		return out;
@@ -47,29 +47,23 @@ struct node
  */
 struct edge
 {
-	node* m_first;		///< Pointer to first node of the edge.
-	node* m_second;		///< Pointer to second node of the edge.
 	int m_weight;		///< Weight of the edge.
 
 	///@brief Default constructor for initializing class members
-	edge():m_first(NULL),m_second(NULL),m_weight(0){};
+	edge():m_weight(0){};
 
-	///@brief Triple argument constructor to initialize class members
-	edge(node* first, node* second, int weight):m_first(first),m_second(second),m_weight(weight){};
+	///@brief Single argument constructor to initialize class members
+	edge( int weight):m_weight(weight){};
 
 	///@brief Friend operator << for decompiling the edge which is used from the graph decompile
-	friend ostream& operator<< (ostream& out, edge& edgeNode)
+	friend ostream& operator<< (ostream& out, edge edgeNode)
 	{
-		out << *(edgeNode.m_first) << " ";
-		out << *(edgeNode.m_second) << " " ;
 		if (0 > edgeNode.m_weight) out << "(" << edgeNode.m_weight << ")";
-		else out << edgeNode.m_weight;
-		cout << "\n";
+		else out << " "<< edgeNode.m_weight;
 		return out;
 	}
 };
 }
-using namespace GraphRead;
 
 /**
  * @brief Main function to test creation of graph data structure after reading a file
@@ -93,22 +87,25 @@ int main(int argc , char* argv[])
 	else infile = new ifstream(argv[1]);
 	int noOfNodes;
 	*infile >> noOfNodes;
-	graph<node*,edge*> Graph(noOfNodes);
+	typedef graph<GraphRead::node*,GraphRead::edge*,graphTraits::bidirectional> Graph;
+	std::vector<Graph::vertexDescriptor*> idToDescriptorMap(noOfNodes);
 	size_t tempNodeStartVal,tempNodeEndVal;
 	int tempWeight;
-	using graphNodeDesc = graph<node*,edge*>::nodeDescriptorType;
-	graphNodeDesc v;
+	Graph g;
 	while (*infile >> tempNodeStartVal >> tempNodeEndVal >> tempWeight)
 	{
-		edge *tempEdge;
-		node *tempNodeStart,*tempNodeEnd;
-		tempNodeStart = (NULL == &Graph[tempNodeStartVal][v]) ? new node(tempNodeStartVal) : &Graph[tempNodeStartVal][v];
-		tempNodeEnd = (NULL == &Graph[tempNodeEndVal][v]) ? new node(tempNodeEndVal) : &Graph[tempNodeEndVal][v];
-		tempEdge = new edge(tempNodeStart,tempNodeEnd,tempWeight);
-		if (NULL == &Graph[tempNodeStartVal][v]) Graph[tempNodeStartVal] = tempNodeStart;
-		if (NULL == &Graph[tempNodeEndVal][v]) Graph[tempNodeEndVal] = tempNodeEnd;
-		Graph[tempNodeStartVal].addEdge(tempEdge);
+		GraphRead::edge *tempEdge;
+		GraphRead::node *tempNodeStart,*tempNodeEnd;
+		tempNodeStart = (NULL == idToDescriptorMap[tempNodeStartVal-1]) ? new GraphRead::node(tempNodeStartVal) : g[*(idToDescriptorMap[tempNodeStartVal-1])];
+		tempNodeEnd = (NULL == idToDescriptorMap[tempNodeEndVal-1]) ? new GraphRead::node(tempNodeEndVal) : g[*(idToDescriptorMap[tempNodeEndVal-1])];
+		tempEdge = new GraphRead::edge(tempWeight);
+		if (NULL == idToDescriptorMap[tempNodeStartVal-1]) idToDescriptorMap[tempNodeStartVal-1] = new Graph::vertexDescriptor(g.addVertex(tempNodeStart));
+		if (NULL == idToDescriptorMap[tempNodeEndVal-1]) idToDescriptorMap[tempNodeEndVal-1] = new Graph::vertexDescriptor(g.addVertex(tempNodeEnd));
+		g.addEdge(*idToDescriptorMap[tempNodeStartVal-1],*idToDescriptorMap[tempNodeEndVal-1],tempEdge);
 	}
-	cout << noOfNodes <<endl <<Graph;
+	g.setDecompileFlavor(graphTraits::AllEdges);
+	cout << noOfNodes <<endl << g;
+	g.setDecompileFlavor(graphTraits::Nodes);
+	cout << noOfNodes <<endl << g;
 	return 0;
 }
