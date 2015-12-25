@@ -50,9 +50,9 @@ struct node
 struct edge
 {
 	int m_weight;		///< Weight of the edge.
-	typedef UnionFind<Clustering::node*>::nodeDescriptor* nodeType;
-	nodeType first;
-	nodeType second;
+	typedef UnionFind<Clustering::node*>::nodeDescriptor* nodeType;	///< Type of node which is the source and sink of this edge
+	nodeType first;	///< Source node
+	nodeType second;	///<Sink node
 
 	///@brief Default constructor for initializing class members
 	edge():m_weight(0),first(NULL),second(NULL){};
@@ -60,6 +60,7 @@ struct edge
 	///@brief Triple argument constructor to initialize class members
 	edge(int weight, nodeType first, nodeType second):m_weight(weight),first(first),second(second){};
 
+	///@brief Member function to get the key required by heap.
 	static int getKey(edge &that) { return that.m_weight; }
 
 	///@brief Friend operator << for decompiling the edge which is used from the graph decompile
@@ -94,7 +95,6 @@ int main(int argc , char* argv[])
 	Clustering::edge *tempEdge;
 	while (*infile >> tempNodeStartVal >> tempNodeEndVal >> tempWeight)
 	{
-
 		Clustering::node *tempNodeStart,*tempNodeEnd;
 		tempNodeStart = (NULL == idToDescriptorMap[tempNodeStartVal-1]) ? new Clustering::node(tempNodeStartVal) : u[*(idToDescriptorMap[tempNodeStartVal-1])];
 		tempNodeEnd = (NULL == idToDescriptorMap[tempNodeEndVal-1]) ? new Clustering::node(tempNodeEndVal) : u[*(idToDescriptorMap[tempNodeEndVal-1])];
